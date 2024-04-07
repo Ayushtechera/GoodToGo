@@ -11,13 +11,14 @@ results = {}
 mot_tracker = Sort()
 
 # load models
-coco_model = YOLO#(car detection trained model) #detects cars
-license_plate_detector = YOLO()#(license_plate_detector_model) #detects number plates
+coco_model = YOLO('yolov8n.pt') #detects cars
+coco_model = YOLO(r'C:\Users\LENOVO\Desktop\ModelTrain\runs\detect\train5\weights\vehicle.pt')
+license_plate_detector = YOLO(r'C:\Users\LENOVO\Desktop\ModelTrain\runs\detect\train4\weights\best.pt') #detects number plates
 
 # load video
-cap = cv2.VideoCapture#(video)
+cap = cv2.VideoCapture(r' C:\Users\LENOVO\Desktop\GoodToGo\sample.mp4.mp4')
 
-#vehicles = [2, 3, 5, 7]
+vehicles = [2, 3, 5, 7]
 
 # read frames
 frame_nmr = -1
@@ -32,7 +33,7 @@ while ret:
         detections_ = []
         for detection in detections.boxes.data.tolist():
             x1, y1, x2, y2, score, class_id = detection
-            if int(class_id) in coco_model:
+            if int(class_id) in vehicles:
                 detections_.append([x1, y1, x2, y2, score])
 
         # track vehicles
